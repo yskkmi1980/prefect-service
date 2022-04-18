@@ -1,0 +1,23 @@
+networks:
+  prefect-server:
+    name: prefect-server
+services:
+  ui:
+    command: /intercept.sh
+    depends_on:
+      apollo:
+        condition: service_started
+    environment:
+      PREFECT_SERVER__APOLLO_URL: http://localhost:4200/graphql
+    healthcheck:
+      interval: 30s
+      retries: 3
+      test: curl --fail --silent --head "http://ui:8080/" &> /dev/null || exit 1
+      timeout: 5s
+    image: prefecthq/ui:core-1.2.0
+    networks:
+      prefect-server: null
+    ports:
+    - 0.0.0.0:8080:8080/tcp
+    restart: always
+version: '3.7'

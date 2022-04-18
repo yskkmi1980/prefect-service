@@ -1,0 +1,15 @@
+[Unit]
+Description=Prefect Server Core Service
+
+[Service]
+User=prefect
+Group=prefect
+Type=simple
+Restart=always
+Environment=COMPOSE_FILE=/opt/prefect/server.yml
+ExecStartPre=docker-compose -f ${COMPOSE_FILE} down --volumes
+ExecStart=docker-compose -f ${COMPOSE_FILE} up
+ExecStop=docker-compose -f ${COMPOSE_FILE} down --volumes
+
+[Install]
+WantedBy = multi-user.target
