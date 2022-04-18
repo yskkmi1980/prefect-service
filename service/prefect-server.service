@@ -6,10 +6,11 @@ User=prefect
 Group=prefect
 Type=simple
 Restart=always
-Environment=COMPOSE_FILE=/opt/prefect/server.yml
-ExecStartPre=docker-compose -f ${COMPOSE_FILE} down --volumes
-ExecStart=docker-compose -f ${COMPOSE_FILE} up
-ExecStop=docker-compose -f ${COMPOSE_FILE} down --volumes
+Environment=CORE_FILE=/opt/prefect-service/server.yml
+Environment=UI_FILE=/opt/prefect-service/ui.yml
+ExecStartPre=docker-compose -f ${CORE_FILE} -f ${UI_FILE} down --volumes
+ExecStart=docker-compose -f ${CORE_FILE} -f ${UI_FILE} up
+ExecStop=docker-compose -f ${CORE_FILE} -f ${UI_FILE} down --volumes
 
 [Install]
 WantedBy = multi-user.target

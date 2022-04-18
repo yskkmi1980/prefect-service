@@ -42,9 +42,4 @@ $ sudo systemctl enable --now prefect-server.service
 $ sudo systemctl start prefect-server.service
 ```
 
-Register prefect-ui service to systemd and start service
-
-```sh
-$ sudo systemctl enable --now prefect-ui.service
-$ sudo systemctl start prefect-ui.service
-```
+http://localhost:8080/
